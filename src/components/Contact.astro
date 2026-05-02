@@ -3,18 +3,15 @@
 
 <section id="contact" class="contact">
   <div class="contact-inner pixel-box">
-    <div class="game-over-header">
-      <div class="go-line blink">— GAME OVER —</div>
-      <div class="score-label">FINAL SCORE</div>
-      <div class="score-val">100.000</div>
+    <div class="contact-header">
+      <div class="section-tag">// NUEVA MISIÓN</div>
+      <div class="contact-title glitch">¿COLABORAMOS?</div>
+      <div class="contact-subtitle">PLAYER 2 HAS ENTERED THE CHAT</div>
     </div>
 
-    <div class="continue-box">
-      <p class="continue-text">¿CONTINUAR?</p>
-      <div class="countdown">
-        <span class="count-ring">9</span>
-      </div>
-      <p class="continue-sub">Envíame un mensaje y empecemos algo juntos</p>
+    <div class="contact-box">
+      <p class="contact-box-title">▶ SELECCIONA CANAL DE COMUNICACIÓN</p>
+      <p class="contact-box-sub">Envíame un mensaje y empecemos algo juntos</p>
     </div>
 
     <div class="contact-links">
@@ -33,7 +30,8 @@
     </div>
 
     <div class="footer-bar">
-      <span>INSERT COIN TO PLAY AGAIN</span>
+      <span class="blink">▮</span>
+      <span>READY PLAYER ONE</span>
       <span class="blink">▮</span>
     </div>
   </div>
@@ -51,70 +49,53 @@
     text-align: center;
   }
 
-  .game-over-header {
+  .contact-header {
     margin-bottom: 2.5rem;
   }
 
-  .go-line {
-    font-family: var(--font-pixel);
-    font-size: clamp(0.8rem, 3vw, 1.4rem);
-    color: var(--accent2);
-    letter-spacing: 6px;
-    margin-bottom: 1.5rem;
-    text-shadow: 0 0 20px var(--accent2);
-  }
-
-  .score-label {
+  .section-tag {
     font-family: var(--font-pixel);
     font-size: 0.5rem;
-    color: rgba(255,255,255,0.4);
-    letter-spacing: 4px;
-    margin-bottom: 0.5rem;
+    color: var(--accent2);
+    letter-spacing: 3px;
+    margin-bottom: 1.2rem;
   }
 
-  .score-val {
+  .contact-title {
     font-family: var(--font-pixel);
-    font-size: clamp(1.5rem, 5vw, 2.5rem);
-    color: var(--accent3);
-    letter-spacing: 4px;
-    text-shadow: 0 0 16px var(--accent3);
+    font-size: clamp(0.9rem, 3vw, 1.5rem);
+    color: var(--accent);
+    letter-spacing: 5px;
+    margin-bottom: 0.8rem;
+    text-shadow: 0 0 16px var(--accent);
   }
 
-  .continue-box {
+  .contact-subtitle {
+    font-family: var(--font-vt);
+    font-size: 1.3rem;
+    color: var(--accent3);
+    letter-spacing: 3px;
+  }
+
+  .contact-box {
     margin-bottom: 2.5rem;
     border: 2px solid rgba(0,255,65,0.2);
     padding: 1.5rem;
     background: rgba(0,255,65,0.02);
   }
 
-  .continue-text {
+  .contact-box-title {
     font-family: var(--font-pixel);
-    font-size: 0.7rem;
+    font-size: 0.5rem;
     color: var(--accent);
-    letter-spacing: 4px;
+    letter-spacing: 2px;
     margin-bottom: 1rem;
+    line-height: 1.8;
   }
 
-  .countdown {
-    margin: 0 auto 1rem;
-    width: 56px;
-    height: 56px;
-    border: 3px solid var(--accent);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .count-ring {
-    font-family: var(--font-pixel);
-    font-size: 1.2rem;
-    color: var(--accent);
-  }
-
-  .continue-sub {
+  .contact-box-sub {
     font-family: var(--font-vt);
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     color: rgba(255,255,255,0.5);
   }
 
