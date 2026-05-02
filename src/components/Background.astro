@@ -1,12 +1,12 @@
 ---
 ---
-<canvas id="bg-canvas" aria-hidden="true"></canvas>
+<canvas id="bg-canvas"></canvas>
 
 <script>
 const canvas = document.getElementById('bg-canvas') as HTMLCanvasElement;
 const ctx = canvas.getContext('2d')!;
 
-// ── Sprites ──────────────────────────────────────────────────────────────────
+// ── Sprites ───────────────────────────────────────────────────────────────────
 const INVADER_A = [
   [0,0,1,0,0,0,0,0,1,0,0],
   [0,0,0,1,0,0,0,1,0,0,0],
@@ -47,8 +47,6 @@ const MUSHROOM = [
   [0,0,1,1,0,0,1,1,0,0],
   [0,0,1,1,1,1,1,1,0,0],
 ];
-
-// Player ship sprite (9×11, pointing up)
 const SHIP = [
   [0,0,0,0,1,0,0,0,0],
   [0,0,0,1,1,1,0,0,0],
@@ -60,8 +58,13 @@ const SHIP = [
   [1,0,1,0,1,0,1,0,1],
   [0,0,1,0,0,0,1,0,0],
   [0,0,1,0,0,0,1,0,0],
-  [0,0,0,0,0,0,0,0,0],
 ];
+
+const SHIP_SCALE = 3;
+const SHIP_COLS  = SHIP[0].length;
+const SHIP_ROWS  = SHIP.length;
+const SHIP_W     = SHIP_COLS * SHIP_SCALE;
+const SHIP_H     = SHIP_ROWS * SHIP_SCALE;
 
 function drawSprite(
   sprite: number[][], x: number, y: number,
@@ -72,18 +75,14 @@ function drawSprite(
   for (let r = 0; r < sprite.length; r++) {
     for (let c = 0; c < sprite[r].length; c++) {
       if (sprite[r][c]) {
-        ctx.fillRect(
-          Math.floor(x + c * scale),
-          Math.floor(y + r * scale),
-          scale, scale
-        );
+        ctx.fillRect(Math.floor(x + c * scale), Math.floor(y + r * scale), scale, scale);
       }
     }
   }
   ctx.globalAlpha = 1;
 }
 
-// ── Entities ─────────────────────────────────────────────────────────────────
+// ── Types ─────────────────────────────────────────────────────────────────────
 type Entity = {
   x: number; y: number;
   vx: number; vy: number;
@@ -92,39 +91,34 @@ type Entity = {
   color: string;
   alpha: number;
 };
+type Bullet = { x: number; y: number; };
+type Particle = { x: number; y: number; vx: number; vy: number; life: number; color: string; };
 
-type Bullet = { x: number; y: number; vx: number; vy: number; };
-
-const COLORS = ['#00ff41', '#00e838', '#00b4d8', '#ffbe0b', '#ff006e', '#a29bfe'];
+// ── State ─────────────────────────────────────────────────────────────────────
+const COLORS  = ['#00ff41', '#00e838', '#00b4d8', '#ffbe0b', '#ff006e', '#a29bfe'];
 const SPRITES = [INVADER_A, INVADER_B, INVADER_A, INVADER_B, COIN, MUSHROOM];
 
-let entities: Entity[] = [];
-let stars: { x: number; y: number; r: number; blink: number; phase: number }[] = [];
-let bullets: Bullet[] = [];
+let entities:  Entity[]   = [];
+let stars:     { x: number; y: number; r: number; blink: number; phase: number }[] = [];
+let bullets:   Bullet[]   = [];
+let particles: Particle[] = [];
+let score = 0;
+let lastFire  = 0;
+let lastSpawn = 0;
 
-// ── Player ────────────────────────────────────────────────────────────────────
-const SHIP_SCALE = 3;
-const SHIP_W = SHIP[0].length * SHIP_SCALE;
-const SHIP_H = SHIP.length * SHIP_SCALE;
-const SHIP_SPEED = 4;
-const BULLET_SPEED = 9;
-const FIRE_INTERVAL = 500; // ms between shots
+const FIRE_INTERVAL = 350; // ms
 
-const player = { x: 0, y: 0, tx: 0, ty: 0 };
-let lastFire = 0;
+const mouse = { x: -200, y: -200 };
 
 window.addEventListener('mousemove', (e) => {
-  player.tx = e.clientX - SHIP_W / 2;
-  player.ty = e.clientY - SHIP_H / 2;
+  mouse.x = e.clientX;
+  mouse.y = e.clientY;
 });
 
+// ── Resize / init ─────────────────────────────────────────────────────────────
 function resize() {
   canvas.width  = window.innerWidth;
   canvas.height = window.innerHeight;
-  player.x  = canvas.width / 2 - SHIP_W / 2;
-  player.y  = canvas.height - SHIP_H - 20;
-  player.tx = player.x;
-  player.ty = player.y;
   initStars();
 }
 
@@ -144,15 +138,29 @@ function spawnEntity() {
   const fromLeft  = Math.random() > 0.5;
   const color     = COLORS[Math.floor(Math.random() * COLORS.length)];
   entities.push({
-    x:      fromLeft ? -80 : canvas.width + 80,
-    y:      Math.random() * canvas.height * 0.8,
-    vx:     (fromLeft ? 1 : -1) * (0.3 + Math.random() * 0.5),
-    vy:     (Math.random() - 0.5) * 0.2,
+    x:     fromLeft ? -80 : canvas.width + 80,
+    y:     Math.random() * canvas.height * 0.85,
+    vx:    (fromLeft ? 1 : -1) * (0.3 + Math.random() * 0.5),
+    vy:    (Math.random() - 0.5) * 0.2,
     scale,
     sprite: SPRITES[spriteIdx],
     color,
-    alpha:  0.12 + Math.random() * 0.18,
+    alpha: 0.18 + Math.random() * 0.18,
   });
+}
+
+function spawnExplosion(cx: number, cy: number, color: string) {
+  for (let i = 0; i < 14; i++) {
+    const angle = Math.random() * Math.PI * 2;
+    const speed = 0.8 + Math.random() * 2.5;
+    particles.push({
+      x: cx, y: cy,
+      vx: Math.cos(angle) * speed,
+      vy: Math.sin(angle) * speed,
+      life: 40 + Math.floor(Math.random() * 30),
+      color,
+    });
+  }
 }
 
 function init() {
@@ -163,20 +171,15 @@ function init() {
 }
 
 // ── Draw loop ─────────────────────────────────────────────────────────────────
-let frame = 0;
-let lastSpawn = 0;
-
 function draw(ts: number) {
   requestAnimationFrame(draw);
-  frame++;
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   // Stars
   const t = ts * 0.001;
   for (const s of stars) {
-    const a = s.blink * (0.5 + 0.5 * Math.sin(t * 1.2 + s.phase));
-    ctx.globalAlpha = a;
+    ctx.globalAlpha = s.blink * (0.5 + 0.5 * Math.sin(t * 1.2 + s.phase));
     ctx.fillStyle = '#ffffff';
     ctx.beginPath();
     ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
@@ -184,83 +187,95 @@ function draw(ts: number) {
   }
   ctx.globalAlpha = 1;
 
-  // Background entities
+  // ── Shoot ──────────────────────────────────────────────────────────────────
+  const shipTipX = mouse.x;
+  const shipTipY = mouse.y;
+  if (ts - lastFire > FIRE_INTERVAL && mouse.x > 0) {
+    bullets.push({ x: shipTipX, y: shipTipY });
+    lastFire = ts;
+  }
+
+  // ── Bullets ───────────────────────────────────────────────────────────────
+  ctx.shadowBlur  = 8;
+  ctx.shadowColor = '#00ff41';
+  ctx.fillStyle   = '#00ff41';
+  ctx.globalAlpha = 0.9;
+  for (let i = bullets.length - 1; i >= 0; i--) {
+    const b = bullets[i];
+    b.y -= 9;
+    ctx.fillRect(Math.floor(b.x) - 1, Math.floor(b.y) - 7, 3, 10);
+    if (b.y < -20) { bullets.splice(i, 1); }
+  }
+  ctx.shadowBlur  = 0;
+  ctx.globalAlpha = 1;
+
+  // ── Entities + collision ──────────────────────────────────────────────────
   for (let i = entities.length - 1; i >= 0; i--) {
     const e = entities[i];
     e.x += e.vx;
     e.y += e.vy;
-    drawSprite(e.sprite, e.x, e.y, e.scale, e.color, e.alpha);
-    if (e.x > canvas.width + 100 || e.x < -100) {
-      entities.splice(i, 1);
+
+    const ew = e.sprite[0].length * e.scale;
+    const eh = e.sprite.length * e.scale;
+
+    // Bullet hit test
+    let hit = false;
+    for (let j = bullets.length - 1; j >= 0; j--) {
+      const b = bullets[j];
+      if (b.x >= e.x && b.x <= e.x + ew && b.y >= e.y && b.y <= e.y + eh) {
+        bullets.splice(j, 1);
+        spawnExplosion(e.x + ew / 2, e.y + eh / 2, e.color);
+        score += 10;
+        hit = true;
+        break;
+      }
     }
+    if (hit) { entities.splice(i, 1); continue; }
+
+    drawSprite(e.sprite, e.x, e.y, e.scale, e.color, e.alpha);
+
+    if (e.x > canvas.width + 100 || e.x < -100) { entities.splice(i, 1); }
   }
 
-  // Spawn entities
-  if (ts - lastSpawn > 3500 && entities.length < 14) {
+  // ── Spawn ──────────────────────────────────────────────────────────────────
+  if (ts - lastSpawn > 3000 && entities.length < 16) {
     spawnEntity();
     lastSpawn = ts;
   }
 
-  // ── Player movement (lerp toward mouse) ───────────────────────────────────
-  const dx = player.tx - player.x;
-  const dy = player.ty - player.y;
-  const dist = Math.sqrt(dx * dx + dy * dy);
-  if (dist > 1) {
-    const step = Math.min(SHIP_SPEED, dist);
-    player.x += (dx / dist) * step;
-    player.y += (dy / dist) * step;
-  }
-
-  // ── Shoot ──────────────────────────────────────────────────────────────────
-  if (ts - lastFire > FIRE_INTERVAL) {
-    // Direction from ship center toward mouse
-    const cx = player.x + SHIP_W / 2;
-    const cy = player.y;
-    // Aim toward the top of the ship's destination (a bit above mouse)
-    const ax = player.tx + SHIP_W / 2;
-    const ay = player.ty - 40;
-    const adx = ax - cx;
-    const ady = ay - cy;
-    const alen = Math.sqrt(adx * adx + ady * ady) || 1;
-    bullets.push({
-      x: cx,
-      y: cy,
-      vx: (adx / alen) * BULLET_SPEED,
-      vy: (ady / alen) * BULLET_SPEED,
-    });
-    lastFire = ts;
-  }
-
-  // ── Draw bullets ──────────────────────────────────────────────────────────
-  ctx.globalAlpha = 0.85;
-  ctx.fillStyle = '#00ff41';
-  for (let i = bullets.length - 1; i >= 0; i--) {
-    const b = bullets[i];
-    b.x += b.vx;
-    b.y += b.vy;
-    // Bullet glow
-    ctx.shadowBlur = 8;
-    ctx.shadowColor = '#00ff41';
-    ctx.fillRect(Math.floor(b.x) - 2, Math.floor(b.y) - 6, 3, 10);
-    ctx.shadowBlur = 0;
-    if (b.x < -10 || b.x > canvas.width + 10 || b.y < -20 || b.y > canvas.height + 10) {
-      bullets.splice(i, 1);
-    }
+  // ── Particles ─────────────────────────────────────────────────────────────
+  for (let i = particles.length - 1; i >= 0; i--) {
+    const p = particles[i];
+    p.x += p.vx;
+    p.y += p.vy;
+    p.life--;
+    ctx.globalAlpha = p.life / 60;
+    ctx.fillStyle = p.color;
+    ctx.fillRect(Math.floor(p.x), Math.floor(p.y), 3, 3);
+    if (p.life <= 0) { particles.splice(i, 1); }
   }
   ctx.globalAlpha = 1;
 
-  // ── Draw ship ──────────────────────────────────────────────────────────────
-  // Engine glow
-  ctx.globalAlpha = 0.2 + 0.1 * Math.sin(ts * 0.01);
+  // ── Ship (= cursor) ───────────────────────────────────────────────────────
+  const sx = mouse.x - SHIP_W / 2;
+  const sy = mouse.y;  // nose of ship at cursor y
+  // Engine flicker
+  ctx.globalAlpha = 0.25 + 0.15 * Math.sin(ts * 0.015);
   ctx.fillStyle = '#00b4d8';
-  ctx.fillRect(
-    Math.floor(player.x + SHIP_W * 0.3),
-    Math.floor(player.y + SHIP_H - 4),
-    Math.floor(SHIP_W * 0.4),
-    6
-  );
+  ctx.fillRect(Math.floor(sx + SHIP_W * 0.3), Math.floor(sy + SHIP_H), Math.floor(SHIP_W * 0.4), 5);
   ctx.globalAlpha = 1;
-  drawSprite(SHIP, player.x, player.y, SHIP_SCALE, '#00ff41', 0.9);
+  drawSprite(SHIP, sx, sy, SHIP_SCALE, '#00ff41', 0.92);
+
+  // ── Score ─────────────────────────────────────────────────────────────────
+  ctx.globalAlpha = 1;
+  ctx.shadowBlur  = 10;
+  ctx.shadowColor = '#00ff41';
+  ctx.fillStyle   = '#00ff41';
+  ctx.font        = '12px "Press Start 2P", monospace';
+  ctx.textAlign   = 'right';
+  ctx.fillText(`SCORE  ${String(score).padStart(5, '0')}`, canvas.width - 20, 36);
+  ctx.shadowBlur  = 0;
+  ctx.textAlign   = 'left';
 }
 
 resize();
@@ -268,6 +283,11 @@ init();
 window.addEventListener('resize', resize);
 requestAnimationFrame(draw);
 </script>
+
+<style is:global>
+  /* Hide OS cursor — ship is the cursor */
+  * { cursor: none !important; }
+</style>
 
 <style>
   #bg-canvas {
