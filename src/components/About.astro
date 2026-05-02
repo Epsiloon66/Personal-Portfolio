@@ -78,7 +78,7 @@ const characters = [
                 />
                 <div class="portrait-inner portrait-fallback">{c.fallback}</div>
               </div>
-              <div class="char-name">{c.name}</div>
+              <div class="char-name" >{c.name}</div>
               <div class="char-class" style={`color:${c.claseColor}`}>▶ {c.clase}</div>
             </div>
           ))}
@@ -260,13 +260,17 @@ const characters = [
     font-family: var(--font-pixel);
     font-size: 0.45rem;
     color: var(--accent);
-    margin-bottom: 0.5rem;
-    letter-spacing: 1px;
+    margin-top: 0.75rem;
+    margin-bottom: 0.6rem;
+    letter-spacing: 2px;
+    line-height: 1.8;
   }
 
   .char-class {
     font-family: var(--font-vt);
-    font-size: 1rem;
+    font-size: 1.1rem;
+    letter-spacing: 3px;
+    padding-bottom: 0.25rem;
   }
 
   /* Info panel */
