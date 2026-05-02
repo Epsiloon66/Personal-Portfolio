@@ -9,9 +9,7 @@
     </div>
 
     <div class="hero-avatar">
-      <div class="avatar-sprite">
-        <div class="pixel-char"></div>
-      </div>
+      <img src="/pixel-avatar.svg" alt="Pixel art character" class="pixel-sprite" />
     </div>
 
     <h1 class="hero-title glitch">GUILLERMO JIMÉNEZ</h1>
@@ -70,52 +68,22 @@
     font-family: var(--font-pixel);
   }
 
-  /* Pixel art character built with CSS */
   .hero-avatar {
     margin: 0 auto 2rem;
-    width: 64px;
-    height: 64px;
+    animation: float 2s ease-in-out infinite;
   }
 
-  .pixel-char {
-    width: 32px;
-    height: 48px;
-    margin: 0 auto;
-    position: relative;
+  .pixel-sprite {
     image-rendering: pixelated;
-    background:
-      /* head */
-      0 0 / 32px 16px no-repeat,
-      /* body */
-      0 16px / 32px 32px no-repeat;
-    box-shadow:
-      /* head silhouette */
-      8px 0px 0 0 var(--accent),
-      8px 4px 0 0 var(--accent),
-      8px 8px 0 0 var(--accent),
-      16px 0px 0 0 var(--accent),
-      16px 4px 0 0 var(--accent),
-      16px 8px 0 0 var(--accent),
-      12px 0px 0 0 var(--accent),
-      12px 4px 0 0 var(--accent),
-      /* eyes */
-      10px 4px 0 0 var(--dark),
-      18px 4px 0 0 var(--dark),
-      /* body */
-      6px 16px 0 0 var(--accent),
-      10px 16px 0 0 var(--accent),
-      14px 16px 0 0 var(--accent),
-      18px 16px 0 0 var(--accent),
-      22px 16px 0 0 var(--accent);
+    width: 112px;
+    height: 160px;
+    display: block;
+    filter: drop-shadow(0 0 8px rgba(0,255,65,0.4));
   }
 
   @keyframes float {
     0%, 100% { transform: translateY(0); }
-    50%       { transform: translateY(-6px); }
-  }
-
-  .hero-avatar {
-    animation: float 2s ease-in-out infinite;
+    50%       { transform: translateY(-8px); }
   }
 
   .hero-title {

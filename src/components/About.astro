@@ -10,7 +10,8 @@
     <div class="char-select">
       <div class="char-card selected">
         <div class="char-portrait">
-          <div class="portrait-inner">GJ</div>
+          <img src="/avatar.jpg" alt="Guillermo Jiménez" class="portrait-photo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+          <div class="portrait-inner portrait-fallback">GJ</div>
         </div>
         <div class="char-name">GUILLERMO JIMÉNEZ</div>
         <div class="char-class">▶ DEV FULLSTACK</div>
@@ -91,17 +92,30 @@
   }
 
   .char-portrait {
-    width: 100px;
-    height: 100px;
-    border: 2px solid var(--accent);
+    width: 130px;
+    height: 160px;
+    border: 3px solid var(--accent);
     margin: 0 auto 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
     background: var(--dark);
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 0 16px rgba(0,255,65,0.25), 4px 4px 0 rgba(0,255,65,0.15);
   }
 
-  .portrait-inner {
+  .portrait-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    image-rendering: auto;
+    filter: contrast(1.05) saturate(0.9);
+  }
+
+  .portrait-fallback {
+    display: none;
     font-family: var(--font-pixel);
     font-size: 1.5rem;
     color: var(--accent);
