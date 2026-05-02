@@ -110,9 +110,20 @@ const FIRE_INTERVAL = 350; // ms
 
 const mouse = { x: -200, y: -200 };
 
+function isInteractive(el: Element | null): boolean {
+  if (!el) return false;
+  const tag = el.tagName.toLowerCase();
+  if (tag === 'a' || tag === 'button') return true;
+  return isInteractive(el.parentElement);
+}
+
 window.addEventListener('mousemove', (e) => {
   mouse.x = e.clientX;
   mouse.y = e.clientY;
+  // Temporarily lift pointer-events to probe what's under cursor
+  canvas.style.pointerEvents = 'none';
+  const under = document.elementFromPoint(e.clientX, e.clientY);
+  canvas.style.zIndex = isInteractive(under) ? '200' : '0';
 });
 
 // ── Resize / init ─────────────────────────────────────────────────────────────
