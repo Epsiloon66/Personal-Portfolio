@@ -137,17 +137,33 @@
     padding: 0.75rem 1.25rem;
     text-decoration: none;
     letter-spacing: 2px;
-    box-shadow: 3px 3px 0 rgba(0,255,65,0.3);
-    transition: background 0.1s;
+    box-shadow: 0 4px 0 #007a1f, 0 6px 0 rgba(0,0,0,0.4);
+    transform: translateY(0);
+    transition: transform 0.08s, box-shadow 0.08s;
+    position: relative;
   }
 
   .contact-btn.secondary {
     background: var(--accent3);
-    box-shadow: 3px 3px 0 rgba(255,190,11,0.3);
+    box-shadow: 0 4px 0 #a07800, 0 6px 0 rgba(0,0,0,0.4);
   }
 
   .contact-btn:hover {
-    filter: brightness(1.2);
+    transform: translateY(-3px);
+    box-shadow: 0 7px 0 #007a1f, 0 9px 0 rgba(0,0,0,0.3);
+  }
+
+  .contact-btn.secondary:hover {
+    box-shadow: 0 7px 0 #a07800, 0 9px 0 rgba(0,0,0,0.3);
+  }
+
+  .contact-btn:active {
+    transform: translateY(4px);
+    box-shadow: 0 0px 0 #007a1f;
+  }
+
+  .contact-btn.secondary:active {
+    box-shadow: 0 0px 0 #a07800;
   }
 
   .btn-icon {
