@@ -1,43 +1,28 @@
-# Astro Starter Kit: Minimal
+# Guillermo Jiménez — Portfolio
 
-```sh
-npm create astro@latest -- --template minimal
-```
+Portfolio personal con estética retro-pixel / arcade, construido con Astro y CSS puro.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Características
 
-## 🚀 Project Structure
+- Fondo animado interactivo con sprites de Space Invaders y Mario — la nave sigue el ratón y dispara automáticamente a los invasores, con sistema de puntuación en tiempo real.
+- Diseño retro inspirado en videojuegos de los 80/90: fuente pixel, bordes CRT, efecto glitch y vignette.
+- Secciones: presentación, selección de personaje, stats/skills con barras XP, log de proyectos y contacto.
+- Soporte bilingüe ES / EN con persistencia en localStorage.
+- 100% CSS puro sin frameworks de UI, sin dependencias de componentes externos.
 
-Inside of your Astro project, you'll see the following folders and files:
+## Stack
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+- **Astro** — generación de sitio estático
+- **CSS** — variables custom, scroll-snap, animaciones
+- **Canvas API** — fondo animado e interactivo
+- **TypeScript** — lógica del canvas y del juego
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Secciones
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+| Sección | Temática |
+|---|---|
+| Hero | Pantalla de inicio de videojuego |
+| Personaje | Selector de personaje estilo RPG |
+| Stats | Barras de XP por tecnología |
+| Misiones | Quest log de proyectos |
+| Contacto | Nueva misión / colaboración |
