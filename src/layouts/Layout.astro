@@ -19,18 +19,110 @@ const { title = 'GUILLERMO JIMÉNEZ — PORTFOLIO' } = Astro.props;
     <nav class="nav-bar">
       <span class="nav-logo">GJ</span>
       <ul class="nav-links">
-        <li><a href="#hero">INICIO</a></li>
-        <li><a href="#about">PERSONAJE</a></li>
+        <li><a href="#hero"     data-i18n="nav.inicio">INICIO</a></li>
+        <li><a href="#about"    data-i18n="nav.personaje">PERSONAJE</a></li>
         <li><a href="#skills">STATS</a></li>
-        <li><a href="#projects">MISIONES</a></li>
-        <li><a href="#contact">CONTACTO</a></li>
+        <li><a href="#projects" data-i18n="nav.misiones">MISIONES</a></li>
+        <li><a href="#contact"  data-i18n="nav.contacto">CONTACTO</a></li>
       </ul>
     </nav>
+
+    <!-- Language switcher -->
+    <div id="lang-switcher">
+      <button id="btn-es" class="lang-btn active" aria-label="Español">ES</button>
+      <button id="btn-en" class="lang-btn"        aria-label="English">EN</button>
+    </div>
 
     <Background />
     <slot />
   </body>
 </html>
+
+<script>
+const translations: Record<string, Record<string, string>> = {
+  es: {
+    'nav.inicio':        'INICIO',
+    'nav.personaje':     'PERSONAJE',
+    'nav.misiones':      'MISIONES',
+    'nav.contacto':      'CONTACTO',
+    'hero.subtitle':     'DESARROLLADOR MULTIPLATAFORMAS',
+    'hero.btn':          '[ INICIAR JUEGO ]',
+    'about.prompt':      '◄ ► PARA CAMBIAR PERSONAJE',
+    'about.c0.clase':    'DEV FULLSTACK',
+    'about.c0.l1':       'CLASE',   'about.c0.v1': 'Desarrollador Web',
+    'about.c0.l2':       'NIVEL',   'about.c0.v2': 'EN PROGRESO',
+    'about.c0.l3':       'MISIÓN',  'about.c0.v3': 'Crear experiencias web únicas',
+    'about.c0.bio':      'Desarrollador apasionado por la web y las nuevas tecnologías. Me gusta construir proyectos con personalidad propia, desde la arquitectura hasta el último píxel.',
+    'about.c1.clase':    'CODE MACHINE',
+    'about.c1.l2':       'MODO',    'about.c1.v2': 'CONCENTRACIÓN MAX',
+    'about.c1.l3':       'MISIÓN',  'about.c1.v3': 'Optimizar. Refactorizar. Dominar.',
+    'about.c1.bio':      'Cuando hay que entregar, desaparece todo lo demás. Café, código y silencio absoluto. No me hables hasta que cierre el último PR.',
+    'skills.proyectos':  'PROYECTOS',
+    'skills.bugs':       'BUGS DERROTADOS',
+    'projects.sub':      'MISIONES COMPLETADAS',
+    'projects.p0.status':'COMPLETADO',
+    'projects.p1.status':'COMPLETADO',
+    'projects.p2.status':'EN PROGRESO',
+    'projects.p0.desc':  'Portfolio con estética retro-pixel. Astro + CSS puro.',
+    'projects.p1.desc':  'App para parejas con integración de TMDB, Spotify y Google Calendar. Privado, uso personal. Se puede enseñar pero no ver código.',
+    'projects.p2.desc':  'E-commerce de zapatillas con chatbot RAG integrado.',
+    'projects.more':     '▶ VER MÁS EN GITHUB',
+    'contact.tag':       '// NUEVA MISIÓN',
+    'contact.title':     '¿COLABORAMOS?',
+    'contact.box.title': '▶ SELECCIONA CANAL DE COMUNICACIÓN',
+    'contact.box.sub':   'Envíame un mensaje y empecemos algo juntos',
+  },
+  en: {
+    'nav.inicio':        'HOME',
+    'nav.personaje':     'CHARACTER',
+    'nav.misiones':      'MISSIONS',
+    'nav.contacto':      'CONTACT',
+    'hero.subtitle':     'MULTIPLATFORM DEVELOPER',
+    'hero.btn':          '[ START GAME ]',
+    'about.prompt':      '◄ ► TO CHANGE CHARACTER',
+    'about.c0.clase':    'FULLSTACK DEV',
+    'about.c0.l1':       'CLASS',   'about.c0.v1': 'Web Developer',
+    'about.c0.l2':       'LEVEL',   'about.c0.v2': 'IN PROGRESS',
+    'about.c0.l3':       'MISSION', 'about.c0.v3': 'Creating unique web experiences',
+    'about.c0.bio':      'Developer passionate about the web and new technologies. I love building projects with their own personality, from architecture down to the last pixel.',
+    'about.c1.clase':    'CODE MACHINE',
+    'about.c1.l2':       'MODE',    'about.c1.v2': 'MAX CONCENTRATION',
+    'about.c1.l3':       'MISSION', 'about.c1.v3': 'Optimize. Refactor. Dominate.',
+    'about.c1.bio':      "When it's time to deliver, everything else disappears. Coffee, code and absolute silence. Don't talk to me until the last PR is closed.",
+    'skills.proyectos':  'PROJECTS',
+    'skills.bugs':       'BUGS DEFEATED',
+    'projects.sub':      'COMPLETED MISSIONS',
+    'projects.p0.status':'COMPLETED',
+    'projects.p1.status':'COMPLETED',
+    'projects.p2.status':'IN PROGRESS',
+    'projects.p0.desc':  'Portfolio with retro-pixel aesthetic. Astro + pure CSS.',
+    'projects.p1.desc':  'Couples app with TMDB, Spotify and Google Calendar integration. Private, personal use. Can be shown but source code is private.',
+    'projects.p2.desc':  'Sneaker e-commerce with integrated RAG chatbot.',
+    'projects.more':     '▶ SEE MORE ON GITHUB',
+    'contact.tag':       '// NEW MISSION',
+    'contact.title':     "LET'S COLLABORATE?",
+    'contact.box.title': '▶ SELECT COMMUNICATION CHANNEL',
+    'contact.box.sub':   "Send me a message and let's build something together",
+  },
+};
+
+function applyLang(lang: string) {
+  document.querySelectorAll<HTMLElement>('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n!;
+    if (translations[lang]?.[key]) el.textContent = translations[lang][key];
+  });
+  document.documentElement.lang = lang;
+  localStorage.setItem('lang', lang);
+  document.getElementById('btn-es')!.classList.toggle('active', lang === 'es');
+  document.getElementById('btn-en')!.classList.toggle('active', lang === 'en');
+}
+
+document.getElementById('btn-es')!.addEventListener('click', () => applyLang('es'));
+document.getElementById('btn-en')!.addEventListener('click', () => applyLang('en'));
+
+const saved = localStorage.getItem('lang') ?? 'es';
+if (saved !== 'es') applyLang(saved);
+</script>
 
 <style is:global>
   @import '../styles/global.css';
@@ -75,5 +167,36 @@ const { title = 'GUILLERMO JIMÉNEZ — PORTFOLIO' } = Astro.props;
   .nav-links a:hover {
     color: var(--accent);
     text-shadow: 0 0 8px var(--accent);
+  }
+
+  #lang-switcher {
+    position: fixed;
+    top: 72px;
+    left: 20px;
+    z-index: 500;
+    display: flex;
+    gap: 6px;
+  }
+
+  .lang-btn {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 9px;
+    color: rgba(0,255,65,0.45);
+    background: transparent;
+    border: 1px solid rgba(0,255,65,0.25);
+    padding: 5px 8px;
+    letter-spacing: 1px;
+    transition: color 0.1s, border-color 0.1s;
+  }
+
+  .lang-btn.active {
+    color: #00ff41;
+    border-color: #00ff41;
+    text-shadow: 0 0 8px #00ff41;
+  }
+
+  .lang-btn:hover {
+    color: #00ff41;
+    border-color: rgba(0,255,65,0.6);
   }
 </style>

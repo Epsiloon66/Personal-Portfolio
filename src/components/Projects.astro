@@ -37,19 +37,19 @@ const projects = [
   <div class="projects-inner pixel-box">
     <div class="section-header">
       <span class="section-tag">// QUEST LOG</span>
-      <span class="section-sub">MISIONES COMPLETADAS</span>
+      <span class="section-sub" data-i18n="projects.sub">MISIONES COMPLETADAS</span>
     </div>
 
     <div class="quest-list">
-      {projects.map((p) => (
+      {projects.map((p, i) => (
         <div class="quest-card">
           <div class="quest-top">
             <span class="quest-id">#{p.id}</span>
             <span class="quest-type">[{p.type}]</span>
-            <span class="quest-status" style={`color: ${p.statusColor}`}>{p.status}</span>
+            <span class="quest-status" style={`color: ${p.statusColor}`} data-i18n={`projects.p${i}.status`}>{p.status}</span>
           </div>
           <h3 class="quest-name">{p.name}</h3>
-          <p class="quest-desc">{p.desc}</p>
+          <p class="quest-desc" data-i18n={`projects.p${i}.desc`}>{p.desc}</p>
           <div class="quest-bottom">
             <div class="quest-tech">
               {p.tech.map(t => <span class="tech-tag">{t}</span>)}
@@ -62,7 +62,7 @@ const projects = [
 
     <div class="more-projects">
       <a href="https://github.com/Epsiloon66" target="_blank" rel="noopener" class="more-btn">
-        ▶ VER MÁS EN GITHUB
+        <span data-i18n="projects.more">▶ VER MÁS EN GITHUB</span>
       </a>
     </div>
   </div>

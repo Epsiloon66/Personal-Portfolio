@@ -61,8 +61,8 @@ const characters = [
                 />
                 <div class="portrait-inner portrait-fallback">{c.fallback}</div>
               </div>
-              <div class="char-name" >{c.name}</div>
-              <div class="char-class" style={`color:${c.claseColor}`}>▶ {c.clase}</div>
+              <div class="char-name">{c.name}</div>
+              <div class="char-class" style={`color:${c.claseColor}`}>▶ <span data-i18n={`about.c${i}.clase`}>{c.clase}</span></div>
             </div>
           ))}
         </div>
@@ -74,23 +74,23 @@ const characters = [
       <div class="char-info" id="char-info">
         {characters.map((c, i) => (
           <div class={`info-slot ${i === 0 ? 'active' : ''}`} data-index={i}>
-            {c.stats.map(s => (
+            {c.stats.map((s, j) => (
               <div class="info-row">
-                <span class="label">{s.label}</span>
+                <span class="label" data-i18n={j > 0 ? `about.c${i}.l${j}` : undefined}>{s.label}</span>
                 <span class="value">
-                  {s.value}{s.blink ? <span class="blink"> ▮</span> : ''}
+                  <span data-i18n={j > 0 ? `about.c${i}.v${j}` : undefined}>{s.value}</span>{s.blink ? <span class="blink"> ▮</span> : ''}
                 </span>
               </div>
             ))}
             <div class="bio-box">
-              <p class="bio-text">{c.bio}</p>
+              <p class="bio-text" data-i18n={`about.c${i}.bio`}>{c.bio}</p>
             </div>
           </div>
         ))}
       </div>
     </div>
 
-    <div class="select-prompt blink">◄ ► PARA CAMBIAR PERSONAJE</div>
+    <div class="select-prompt blink" data-i18n="about.prompt">◄ ► PARA CAMBIAR PERSONAJE</div>
   </div>
 </section>
 
