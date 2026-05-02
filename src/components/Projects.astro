@@ -1,0 +1,175 @@
+---
+const projects = [
+  {
+    id: '001',
+    name: 'PERSONAL PORTFOLIO',
+    type: 'WEB',
+    status: 'EN PROGRESO',
+    statusColor: 'var(--accent3)',
+    desc: 'Portfolio con estética retro-pixel. Astro + CSS puro.',
+    tech: ['Astro', 'CSS'],
+    reward: '★★★',
+  },
+  {
+    id: '002',
+    name: 'PROYECTO A-G',
+    type: 'WEBAPP',
+    status: 'COMPLETADA',
+    statusColor: 'var(--accent)',
+    desc: 'App para parejas con integración de TMDB, Spotify y Google Calendar.',
+    tech: ['Astro', 'Supabase', 'TypeScript'],
+    reward: '★★★★',
+  },
+  {
+    id: '003',
+    name: 'TAIKO SHOP',
+    type: 'E-COMMERCE',
+    status: 'COMPLETADA',
+    statusColor: 'var(--accent)',
+    desc: 'E-commerce de zapatillas con chatbot RAG integrado.',
+    tech: ['Node.js', 'PostgreSQL', 'OpenAI'],
+    reward: '★★★★★',
+  },
+];
+---
+
+<section id="projects" class="projects">
+  <div class="projects-inner pixel-box">
+    <div class="section-header">
+      <span class="section-tag">// QUEST LOG</span>
+      <span class="section-sub">MISIONES COMPLETADAS</span>
+    </div>
+
+    <div class="quest-list">
+      {projects.map((p) => (
+        <div class="quest-card">
+          <div class="quest-top">
+            <span class="quest-id">#{p.id}</span>
+            <span class="quest-type">[{p.type}]</span>
+            <span class="quest-status" style={`color: ${p.statusColor}`}>{p.status}</span>
+          </div>
+          <h3 class="quest-name">{p.name}</h3>
+          <p class="quest-desc">{p.desc}</p>
+          <div class="quest-bottom">
+            <div class="quest-tech">
+              {p.tech.map(t => <span class="tech-tag">{t}</span>)}
+            </div>
+            <span class="quest-reward" title="Dificultad">{p.reward}</span>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .projects {
+    background: var(--darker);
+    padding-top: 4rem;
+  }
+
+  .projects-inner {
+    max-width: 900px;
+    width: 100%;
+  }
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .section-tag {
+    font-family: var(--font-pixel);
+    font-size: 0.5rem;
+    color: var(--accent2);
+    letter-spacing: 2px;
+  }
+
+  .section-sub {
+    font-family: var(--font-vt);
+    font-size: 1rem;
+    color: rgba(0, 255, 65, 0.4);
+    letter-spacing: 4px;
+  }
+
+  .quest-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .quest-card {
+    border: 1px solid rgba(0, 255, 65, 0.25);
+    padding: 1.25rem;
+    background: rgba(0, 0, 0, 0.3);
+    transition: border-color 0.15s, background 0.15s;
+  }
+
+  .quest-card:hover {
+    border-color: var(--accent);
+    background: rgba(0, 255, 65, 0.04);
+  }
+
+  .quest-top {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 0.75rem;
+    font-family: var(--font-pixel);
+    font-size: 0.4rem;
+    flex-wrap: wrap;
+  }
+
+  .quest-id    { color: rgba(255,255,255,0.3); }
+  .quest-type  { color: var(--accent3); }
+
+  .quest-name {
+    font-family: var(--font-pixel);
+    font-size: 0.65rem;
+    color: var(--text);
+    margin-bottom: 0.6rem;
+    letter-spacing: 2px;
+  }
+
+  .quest-desc {
+    font-family: var(--font-vt);
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 1rem;
+    line-height: 1.5;
+  }
+
+  .quest-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .quest-tech {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .tech-tag {
+    font-family: var(--font-pixel);
+    font-size: 0.4rem;
+    color: var(--accent);
+    border: 1px solid rgba(0,255,65,0.3);
+    padding: 0.2rem 0.5rem;
+    letter-spacing: 1px;
+  }
+
+  .quest-reward {
+    font-family: var(--font-pixel);
+    font-size: 0.5rem;
+    color: var(--accent3);
+    letter-spacing: 2px;
+  }
+</style>

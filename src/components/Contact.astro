@@ -1,0 +1,169 @@
+---
+---
+
+<section id="contact" class="contact">
+  <div class="contact-inner pixel-box">
+    <div class="game-over-header">
+      <div class="go-line blink">— GAME OVER —</div>
+      <div class="score-label">FINAL SCORE</div>
+      <div class="score-val">100.000</div>
+    </div>
+
+    <div class="continue-box">
+      <p class="continue-text">¿CONTINUAR?</p>
+      <div class="countdown">
+        <span class="count-ring">9</span>
+      </div>
+      <p class="continue-sub">Envíame un mensaje y empecemos algo juntos</p>
+    </div>
+
+    <div class="contact-links">
+      <a href="mailto:gjimartnez@gmail.com" class="contact-btn">
+        <span class="btn-icon">✉</span>
+        <span>EMAIL</span>
+      </a>
+      <a href="https://github.com/Epsiloon66" target="_blank" rel="noopener" class="contact-btn">
+        <span class="btn-icon">◈</span>
+        <span>GITHUB</span>
+      </a>
+      <a href="https://linkedin.com" target="_blank" rel="noopener" class="contact-btn secondary">
+        <span class="btn-icon">◉</span>
+        <span>LINKEDIN</span>
+      </a>
+    </div>
+
+    <div class="footer-bar">
+      <span>INSERT COIN TO PLAY AGAIN</span>
+      <span class="blink">▮</span>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact {
+    background: var(--black);
+    padding-top: 4rem;
+  }
+
+  .contact-inner {
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .game-over-header {
+    margin-bottom: 2.5rem;
+  }
+
+  .go-line {
+    font-family: var(--font-pixel);
+    font-size: clamp(0.8rem, 3vw, 1.4rem);
+    color: var(--accent2);
+    letter-spacing: 6px;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 0 20px var(--accent2);
+  }
+
+  .score-label {
+    font-family: var(--font-pixel);
+    font-size: 0.5rem;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 4px;
+    margin-bottom: 0.5rem;
+  }
+
+  .score-val {
+    font-family: var(--font-pixel);
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
+    color: var(--accent3);
+    letter-spacing: 4px;
+    text-shadow: 0 0 16px var(--accent3);
+  }
+
+  .continue-box {
+    margin-bottom: 2.5rem;
+    border: 2px solid rgba(0,255,65,0.2);
+    padding: 1.5rem;
+    background: rgba(0,255,65,0.02);
+  }
+
+  .continue-text {
+    font-family: var(--font-pixel);
+    font-size: 0.7rem;
+    color: var(--accent);
+    letter-spacing: 4px;
+    margin-bottom: 1rem;
+  }
+
+  .countdown {
+    margin: 0 auto 1rem;
+    width: 56px;
+    height: 56px;
+    border: 3px solid var(--accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .count-ring {
+    font-family: var(--font-pixel);
+    font-size: 1.2rem;
+    color: var(--accent);
+  }
+
+  .continue-sub {
+    font-family: var(--font-vt);
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.5);
+  }
+
+  .contact-links {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 2.5rem;
+  }
+
+  .contact-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-pixel);
+    font-size: 0.5rem;
+    color: var(--black);
+    background: var(--accent);
+    padding: 0.75rem 1.25rem;
+    text-decoration: none;
+    letter-spacing: 2px;
+    box-shadow: 3px 3px 0 rgba(0,255,65,0.3);
+    transition: background 0.1s;
+  }
+
+  .contact-btn.secondary {
+    background: var(--accent3);
+    box-shadow: 3px 3px 0 rgba(255,190,11,0.3);
+  }
+
+  .contact-btn:hover {
+    filter: brightness(1.2);
+  }
+
+  .btn-icon {
+    font-size: 0.7rem;
+  }
+
+  .footer-bar {
+    font-family: var(--font-pixel);
+    font-size: 0.45rem;
+    color: rgba(255,255,255,0.2);
+    letter-spacing: 3px;
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    align-items: center;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding-top: 1.5rem;
+  }
+</style>

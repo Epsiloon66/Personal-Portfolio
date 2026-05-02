@@ -1,0 +1,177 @@
+---
+---
+
+<section id="about" class="about">
+  <div class="about-inner pixel-box">
+    <div class="section-header">
+      <span class="section-tag">// SELECT CHARACTER</span>
+    </div>
+
+    <div class="char-select">
+      <div class="char-card selected">
+        <div class="char-portrait">
+          <div class="portrait-inner">EP</div>
+        </div>
+        <div class="char-name">EPSILOON66</div>
+        <div class="char-class">▶ DEV FULLSTACK</div>
+      </div>
+
+      <div class="char-info">
+        <div class="info-row">
+          <span class="label">NOMBRE</span>
+          <span class="value">Guillermo J. M.</span>
+        </div>
+        <div class="info-row">
+          <span class="label">CLASE</span>
+          <span class="value">Desarrollador Web</span>
+        </div>
+        <div class="info-row">
+          <span class="label">NIVEL</span>
+          <span class="value">EN PROGRESO <span class="blink">▮</span></span>
+        </div>
+        <div class="info-row">
+          <span class="label">MISIÓN</span>
+          <span class="value">Crear experiencias web únicas</span>
+        </div>
+
+        <div class="bio-box">
+          <p class="bio-text">
+            Desarrollador apasionado por la web y las nuevas tecnologías.
+            Me gusta construir proyectos con personalidad propia, desde la
+            arquitectura hasta el último píxel.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="select-prompt blink">▶ PRESIONA A PARA CONTINUAR</div>
+  </div>
+</section>
+
+<style>
+  .about {
+    background: var(--darker);
+    padding-top: 4rem;
+  }
+
+  .about-inner {
+    max-width: 860px;
+    width: 100%;
+  }
+
+  .section-header {
+    margin-bottom: 2rem;
+  }
+
+  .section-tag {
+    font-family: var(--font-pixel);
+    font-size: 0.5rem;
+    color: var(--accent2);
+    letter-spacing: 2px;
+  }
+
+  .char-select {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  .char-card {
+    border: 2px solid rgba(0, 255, 65, 0.3);
+    padding: 1rem;
+    text-align: center;
+    cursor: default;
+    transition: border-color 0.1s;
+  }
+
+  .char-card.selected {
+    border-color: var(--accent);
+    box-shadow: 0 0 12px rgba(0, 255, 65, 0.3);
+  }
+
+  .char-portrait {
+    width: 100px;
+    height: 100px;
+    border: 2px solid var(--accent);
+    margin: 0 auto 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--dark);
+  }
+
+  .portrait-inner {
+    font-family: var(--font-pixel);
+    font-size: 1.5rem;
+    color: var(--accent);
+  }
+
+  .char-name {
+    font-family: var(--font-pixel);
+    font-size: 0.5rem;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+    letter-spacing: 1px;
+  }
+
+  .char-class {
+    font-family: var(--font-vt);
+    font-size: 1rem;
+    color: var(--accent3);
+  }
+
+  .char-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .info-row {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.5rem;
+    border-bottom: 1px solid rgba(0, 255, 65, 0.1);
+    padding-bottom: 0.5rem;
+    font-family: var(--font-pixel);
+  }
+
+  .label {
+    color: var(--accent3);
+    min-width: 80px;
+    flex-shrink: 0;
+  }
+
+  .value {
+    color: var(--text);
+  }
+
+  .bio-box {
+    border: 1px solid rgba(0, 255, 65, 0.2);
+    padding: 1rem;
+    margin-top: 0.5rem;
+    background: rgba(0, 255, 65, 0.03);
+  }
+
+  .bio-text {
+    font-family: var(--font-vt);
+    font-size: 1.1rem;
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  .select-prompt {
+    font-family: var(--font-pixel);
+    font-size: 0.45rem;
+    color: rgba(0, 255, 65, 0.5);
+    text-align: center;
+    margin-top: 2rem;
+    letter-spacing: 2px;
+  }
+
+  @media (max-width: 600px) {
+    .char-select {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

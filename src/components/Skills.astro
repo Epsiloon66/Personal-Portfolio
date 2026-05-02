@@ -1,0 +1,153 @@
+---
+const skills = [
+  { name: 'HTML / CSS',    xp: 85, level: 8, color: 'var(--accent)' },
+  { name: 'JavaScript',    xp: 75, level: 7, color: 'var(--accent3)' },
+  { name: 'TypeScript',    xp: 60, level: 6, color: '#00b4d8' },
+  { name: 'Astro',         xp: 65, level: 6, color: 'var(--accent2)' },
+  { name: 'Node.js',       xp: 65, level: 6, color: 'var(--accent)' },
+  { name: 'PostgreSQL',    xp: 55, level: 5, color: '#a29bfe' },
+  { name: 'Git / GitHub',  xp: 70, level: 7, color: 'var(--accent3)' },
+  { name: 'React',         xp: 50, level: 5, color: '#00b4d8' },
+];
+---
+
+<section id="skills" class="skills">
+  <div class="skills-inner pixel-box">
+    <div class="section-header">
+      <span class="section-tag">// STATS &amp; SKILLS</span>
+      <span class="section-sub">PLAYER ATTRIBUTES</span>
+    </div>
+
+    <div class="skills-grid">
+      {skills.map((skill) => (
+        <div class="skill-row">
+          <div class="skill-header">
+            <span class="skill-name">{skill.name}</span>
+            <span class="skill-level" style={`color: ${skill.color}`}>LVL {skill.level}</span>
+          </div>
+          <div class="xp-bar-outer">
+            <div
+              class="xp-bar-inner"
+              style={`width: ${skill.xp}%; background: ${skill.color};`}
+            ></div>
+          </div>
+          <div class="skill-xp">{skill.xp} / 100 XP</div>
+        </div>
+      ))}
+    </div>
+
+    <div class="total-stats">
+      <div class="stat-item">
+        <span class="stat-label">PROYECTOS</span>
+        <span class="stat-val accent">10+</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">COMMITS</span>
+        <span class="stat-val accent3">500+</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">BUGS DERROTADOS</span>
+        <span class="stat-val accent2">∞</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .skills {
+    background: var(--dark);
+    padding-top: 4rem;
+  }
+
+  .skills-inner {
+    max-width: 800px;
+    width: 100%;
+  }
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .section-tag {
+    font-family: var(--font-pixel);
+    font-size: 0.5rem;
+    color: var(--accent2);
+    letter-spacing: 2px;
+  }
+
+  .section-sub {
+    font-family: var(--font-vt);
+    font-size: 1rem;
+    color: rgba(0, 255, 65, 0.4);
+    letter-spacing: 4px;
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+  }
+
+  .skill-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .skill-header {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-pixel);
+    font-size: 0.45rem;
+    letter-spacing: 1px;
+  }
+
+  .skill-name {
+    color: var(--text);
+  }
+
+  .skill-xp {
+    font-family: var(--font-vt);
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.3);
+    text-align: right;
+  }
+
+  .total-stats {
+    display: flex;
+    justify-content: space-around;
+    border-top: 1px solid rgba(0, 255, 65, 0.2);
+    padding-top: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .stat-item {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .stat-label {
+    font-family: var(--font-pixel);
+    font-size: 0.4rem;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 1px;
+  }
+
+  .stat-val {
+    font-family: var(--font-pixel);
+    font-size: 1.2rem;
+  }
+
+  .accent  { color: var(--accent); }
+  .accent2 { color: var(--accent2); }
+  .accent3 { color: var(--accent3); }
+</style>
