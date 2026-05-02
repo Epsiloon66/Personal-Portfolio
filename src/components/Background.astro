@@ -269,12 +269,12 @@ function draw(ts: number) {
   ctx.globalAlpha = 1;
 
   // ── Ship (= cursor) ───────────────────────────────────────────────────────
-  const shipColor = overButton ? '#ffbe0b' : '#00ff41';
+  const shipColor = overButton ? '#a29bfe' : '#00ff41';
   const sx = mouse.x - SHIP_W / 2;
   const sy = mouse.y;  // nose of ship at cursor y
   // Engine flicker
   ctx.globalAlpha = 0.25 + 0.15 * Math.sin(ts * 0.015);
-  ctx.fillStyle = overButton ? '#ff006e' : '#00b4d8';
+  ctx.fillStyle = overButton ? '#6c5ce7' : '#00b4d8';
   ctx.fillRect(Math.floor(sx + SHIP_W * 0.3), Math.floor(sy + SHIP_H), Math.floor(SHIP_W * 0.4), 5);
   ctx.globalAlpha = 1;
   drawSprite(SHIP, sx, sy, SHIP_SCALE, shipColor, 0.92);
