@@ -79,6 +79,7 @@ section {
   position: absolute;
   inset: -6px;
   border: 1px solid rgba(0, 255, 65, 0.2);
+  pointer-events: none;
 }
 
 /* Blink animation */
