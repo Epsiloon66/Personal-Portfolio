@@ -11,6 +11,8 @@
   --border:   #00ff41;
   --font-pixel: 'Press Start 2P', monospace;
   --font-vt:    'VT323', monospace;
+  --bg-section: rgba(8, 8, 18, 0.82);
+  --bg-section-alt: rgba(20, 26, 50, 0.85);
 }
 
 *, *::before, *::after {
@@ -25,10 +27,15 @@ html {
 }
 
 body {
-  background-color: var(--black);
+  background-color: #04040e;
   color: var(--text);
   font-family: var(--font-pixel);
   overflow-x: hidden;
+}
+
+section {
+  position: relative;
+  z-index: 1;
 }
 
 /* CRT scanlines overlay */
