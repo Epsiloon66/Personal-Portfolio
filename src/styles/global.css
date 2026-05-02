@@ -11,8 +11,8 @@
   --border:   #00ff41;
   --font-pixel: 'Press Start 2P', monospace;
   --font-vt:    'VT323', monospace;
-  --bg-section: rgba(4, 4, 14, 0.80);
-  --bg-section-alt: rgba(4, 4, 14, 0.80);
+  --bg-section: rgba(4, 4, 14, 0.55);
+  --bg-section-alt: rgba(4, 4, 14, 0.55);
 }
 
 *, *::before, *::after {

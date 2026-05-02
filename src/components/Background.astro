@@ -1,10 +1,12 @@
 ---
 ---
 <canvas id="bg-canvas"></canvas>
+<div id="score-hud">SCORE &nbsp;<span id="score-value">00000</span></div>
 
 <script>
-const canvas = document.getElementById('bg-canvas') as HTMLCanvasElement;
-const ctx = canvas.getContext('2d')!;
+const canvas  = document.getElementById('bg-canvas') as HTMLCanvasElement;
+const ctx     = canvas.getContext('2d')!;
+const scoreEl = document.getElementById('score-value')!;
 
 // ── Sprites ───────────────────────────────────────────────────────────────────
 const INVADER_A = [
@@ -279,16 +281,8 @@ function draw(ts: number) {
   ctx.globalAlpha = 1;
   drawSprite(SHIP, sx, sy, SHIP_SCALE, shipColor, 0.92);
 
-  // ── Score ─────────────────────────────────────────────────────────────────
-  ctx.globalAlpha = 1;
-  ctx.shadowBlur  = 10;
-  ctx.shadowColor = '#00ff41';
-  ctx.fillStyle   = '#00ff41';
-  ctx.font        = '12px "Press Start 2P", monospace';
-  ctx.textAlign   = 'right';
-  ctx.fillText(`SCORE  ${String(score).padStart(5, '0')}`, canvas.width - 20, 36);
-  ctx.shadowBlur  = 0;
-  ctx.textAlign   = 'left';
+  // ── Score (HTML element, always visible) ──────────────────────────────────
+  scoreEl.textContent = String(score).padStart(5, '0');
 }
 
 resize();
@@ -310,5 +304,18 @@ requestAnimationFrame(draw);
     pointer-events: none;
     width: 100%;
     height: 100%;
+  }
+
+  #score-hud {
+    position: fixed;
+    top: 18px;
+    right: 20px;
+    z-index: 500;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 11px;
+    color: #00ff41;
+    text-shadow: 0 0 10px #00ff41;
+    pointer-events: none;
+    letter-spacing: 2px;
   }
 </style>
