@@ -4,31 +4,31 @@ const projects = [
     id: '001',
     name: 'PERSONAL PORTFOLIO',
     type: 'WEB',
-    status: 'EN PROGRESO',
-    statusColor: 'var(--accent3)',
+    status: 'COMPLETADO',
+    statusColor: 'var(--accent)',
     desc: 'Portfolio con estética retro-pixel. Astro + CSS puro.',
     tech: ['Astro', 'CSS'],
-    reward: '★★★',
+    reward: '★★★★',
   },
   {
     id: '002',
     name: 'PROYECTO A-G',
     type: 'WEBAPP',
-    status: 'COMPLETADA',
+    status: 'COMPLETADO',
     statusColor: 'var(--accent)',
-    desc: 'App para parejas con integración de TMDB, Spotify y Google Calendar.',
+    desc: 'App para parejas con integración de TMDB, Spotify y Google Calendar. Privado, uso personal. Se puede enseñar pero no ver código.',
     tech: ['Astro', 'Supabase', 'TypeScript'],
-    reward: '★★★★',
+    reward: '★★★★★',
   },
   {
     id: '003',
     name: 'TAIKO SHOP',
     type: 'E-COMMERCE',
-    status: 'COMPLETADA',
-    statusColor: 'var(--accent)',
+    status: 'EN PROGRESO',
+    statusColor: 'var(--accent3)',
     desc: 'E-commerce de zapatillas con chatbot RAG integrado.',
     tech: ['Node.js', 'PostgreSQL', 'OpenAI'],
-    reward: '★★★★★',
+    reward: '★★★★',
   },
 ];
 ---
@@ -58,6 +58,12 @@ const projects = [
           </div>
         </div>
       ))}
+    </div>
+
+    <div class="more-projects">
+      <a href="https://github.com/Epsiloon66" target="_blank" rel="noopener" class="more-btn">
+        ▶ VER MÁS EN GITHUB
+      </a>
     </div>
   </div>
 </section>
@@ -171,5 +177,36 @@ const projects = [
     font-size: 0.5rem;
     color: var(--accent3);
     letter-spacing: 2px;
+  }
+
+  .more-projects {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(0, 255, 65, 0.15);
+  }
+
+  .more-btn {
+    font-family: var(--font-pixel);
+    font-size: 0.55rem;
+    color: var(--black);
+    background: var(--accent);
+    padding: 0.75rem 1.75rem;
+    text-decoration: none;
+    letter-spacing: 2px;
+    box-shadow: 0 4px 0 #007a1f, 0 6px 0 rgba(0,0,0,0.4);
+    transform: translateY(0);
+    transition: transform 0.08s, box-shadow 0.08s;
+  }
+
+  .more-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 7px 0 #007a1f, 0 9px 0 rgba(0,0,0,0.3);
+  }
+
+  .more-btn:active {
+    transform: translateY(4px);
+    box-shadow: 0 0px 0 #007a1f;
   }
 </style>
